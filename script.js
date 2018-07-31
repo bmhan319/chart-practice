@@ -1,12 +1,14 @@
 // Load the Visualization API and the corechart package.
 google.charts.load('current', {'packages':['corechart']});
+google.charts.load('current', {'packages':['timeline']});
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawChart);
 
 
-//google.charts.setOnLoadCallback(drawAllocationChart);
-//google.charts.setOnLoadCallback(drawSemestersChart);
+
+google.charts.setOnLoadCallback(drawAllocationChart);
+google.charts.setOnLoadCallback(drawSemestersChart);
 
 // Callback that creates and populates a data table,
 // instantiates the pie chart, passes in the data and
@@ -88,24 +90,55 @@ function drawSemestersChart() {
   chart.draw(data, options);
 }
 
+function drawTimelineChart() {
+
+  // Create the data table.
+        var container = document.getElementById('timeline');
+        var chart = new google.visualization.Timeline(container);
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn({ type: 'string', id: 'Term' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+        dataTable.addRows([
+          [ 'General Education', new Date(2018, 8, 01), new Date(2019, 4, 31) ],
+          [ 'Declare Major',      new Date(2019, 5, 1),  new Date(2019, 7, 30) ],
+          [ 'Complete 2 Major Classes',  new Date(2019, 8, 1),  new Date(2020, 4, 31) ],
+          [ 'Complete 12 Major Classes',  new Date(2020, 8, 1),  new Date(2022, 4, 31) ]
+        ]);
+
+        chart.draw(dataTable);
+}
+
+
 window.onload = function() {
   // Event Listener for each button: clear all charts, redraw requested one
   document.getElementById("semester-trigger").addEventListener("click", function (){
     document.getElementById("semesters").innerHTML = "";
     document.getElementById("chart_div").innerHTML = "";
     document.getElementById("allocation").innerHTML = "";
+    document.getElementById("timeline").innerHTML = "";
     drawSemestersChart();
   })
   document.getElementById("bowling-trigger").addEventListener("click", function (){
     document.getElementById("semesters").innerHTML = "";
     document.getElementById("chart_div").innerHTML = "";
     document.getElementById("allocation").innerHTML = "";
+    document.getElementById("timeline").innerHTML = "";
     drawChart();
   })
   document.getElementById("allocation-trigger").addEventListener("click", function (){
     document.getElementById("semesters").innerHTML = "";
     document.getElementById("chart_div").innerHTML = "";
     document.getElementById("allocation").innerHTML = "";
+    document.getElementById("timeline").innerHTML = "";
     drawAllocationChart();
+  })
+  document.getElementById("timeline-trigger").addEventListener("click", function (){
+    document.getElementById("semesters").innerHTML = "";
+    document.getElementById("chart_div").innerHTML = "";
+    document.getElementById("allocation").innerHTML = "";
+    document.getElementById("timeline").innerHTML = "";
+    drawTimelineChart();
   })
 }
