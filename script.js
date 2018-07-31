@@ -1,13 +1,12 @@
-console.log("let's build some charts!")
-
-
 // Load the Visualization API and the corechart package.
 google.charts.load('current', {'packages':['corechart']});
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawChart);
-google.charts.setOnLoadCallback(drawAllocationChart);
-google.charts.setOnLoadCallback(drawSemestersChart);
+
+
+//google.charts.setOnLoadCallback(drawAllocationChart);
+//google.charts.setOnLoadCallback(drawSemestersChart);
 
 // Callback that creates and populates a data table,
 // instantiates the pie chart, passes in the data and
@@ -87,4 +86,26 @@ function drawSemestersChart() {
   // Instantiate and draw our chart, passing in some options.
   var chart = new google.visualization.BarChart(document.getElementById('semesters'));
   chart.draw(data, options);
+}
+
+window.onload = function() {
+  // Event Listener for each button: clear all charts, redraw requested one
+  document.getElementById("semester-trigger").addEventListener("click", function (){
+    document.getElementById("semesters").innerHTML = "";
+    document.getElementById("chart_div").innerHTML = "";
+    document.getElementById("allocation").innerHTML = "";
+    drawSemestersChart();
+  })
+  document.getElementById("bowling-trigger").addEventListener("click", function (){
+    document.getElementById("semesters").innerHTML = "";
+    document.getElementById("chart_div").innerHTML = "";
+    document.getElementById("allocation").innerHTML = "";
+    drawChart();
+  })
+  document.getElementById("allocation-trigger").addEventListener("click", function (){
+    document.getElementById("semesters").innerHTML = "";
+    document.getElementById("chart_div").innerHTML = "";
+    document.getElementById("allocation").innerHTML = "";
+    drawAllocationChart();
+  })
 }
